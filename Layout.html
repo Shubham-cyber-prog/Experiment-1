@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sony WH-1000XM4 Wireless Headphones | TechShop</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary: #0d6efd;
+            --primary-light: #3b82f6;
+            --dark: #212529;
+            --light: #f8f9fa;
+            --danger: #dc3545;
+            --success: #28a745;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #f8f9fa;
+            color: var(--dark);
+        }
+        
+        .product-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        /* Product Gallery */
+        .main-image-container {
+            position: relative;
+            background-color: #f8f9fa;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            cursor: zoom-in;
+        }
+        
+        .main-image {
+            max-width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            transition: transform 0.3s;
+        }
+        
+        .thumbnail-container {
+            display: flex;
+            gap: 10px;
+            padding: 1rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        
+        .thumbnail-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background-color: white;
+            padding: 5px;
+        }
+        
+        .thumbnail:hover, .thumbnail.active {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+        
+        /* Product Details */
+        .product-title {
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-brand {
+            color: #6c757d;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .rating {
+            color: #ffc107;
+            margin-bottom: 1rem;
+        }
+        
+        .price-container {
+            margin: 1.5rem 0;
+        }
+        
+        .current-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .original-price {
+            text-decoration: line-through;
+            color: #6c757d;
+            margin-left: 0.5rem;
+        }
+        
+        .discount-badge {
+            background-color: var(--danger);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+        }
+        
+        .availability {
+            color: var(--success);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Options Selector */
+        .option-label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            position: relative;
+        }
+        
+        .color-option.selected::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+        }
+        
+        .size-option {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            margin-right: 0.5rem;
+            cursor: pointer;
+        }
+        
+        .size-option.selected {
+            border-color: var(--primary);
+            background-color: rgba(13, 110, 253, 0.1);
+        }
+        
+        /* Quantity Selector */
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+        }
+        
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .quantity-input {
+            width: 60px;
+            height: 40px;
+            text-align: center;
+            border: 1px solid #dee2e6;
+            border-left: none;
+            border-right: none;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .btn-cart {
+            flex: 1;
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem;
+            border-radius: 0.25rem;
+            border: none;
+        }
+        
+        .btn-wishlist {
+            width: 50px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        /* Product Tabs */
+        .product-tabs {
+            margin: 3rem 0;
+        }
+        
+        .nav-tabs .nav-link {
+            color: var(--dark);
+            font-weight: 600;
+            border: none;
+            padding: 1rem 1.5rem;
+        }
+        
+        .nav-tabs .nav-link.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .tab-content {
+            padding: 1.5rem;
+            border: 1px solid #dee2e6;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            background-color: white;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .main-image-container {
+                min-height: 300px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn-cart, .btn-wishlist {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Electronics</a></li>
+                <li class="breadcrumb-item"><a href="#">Audio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Headphones</li>
+            </ol>
+        </nav>
+        
+        <div class="product-container">
+            <div class="row g-0">
+                <!-- Product Gallery Column -->
+                <div class="col-lg-6">
+                    <div class="main-image-container">
+                        <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                             class="main-image" 
+                             alt="Sony WH-1000XM4 Wireless Headphones"
+                             id="mainImage">
+                    </div>
+                    <div class="thumbnail-container">
+                        <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
+                             class="thumbnail active" 
+                             alt="Front View"
+                             onclick="changeImage(this, 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
+                             class="thumbnail" 
+                             alt="Side View"
+                             onclick="changeImage(this, 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://th.bing.com/th/id/OIP.HErrR7CvDeuDmoflEbktsQHaEK?w=293&h=180&c=7&r=0&o=5&cb=iwc1&dpr=1.1&pid=1.7"
+                             class="thumbnail" 
+                             alt="Top View"
+                             onclick="changeImage(this, 'https://th.bing.com/th/id/OIP.HErrR7CvDeuDmoflEbktsQHaEK?w=293&h=180&c=7&r=0&o=5&cb=iwc1&dpr=1.1&pid=1.7')">
+                        <img src="https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
+                             class="thumbnail" 
+                             alt="With Case"
+                             onclick="changeImage(this, 'https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80')">
+                    </div>
+                </div>
+                
+                <!-- Product Details Column -->
+                <div class="col-lg-6 p-4">
+                    <h1 class="product-title">Sony WH-1000XM4 Wireless Headphones</h1>
+                    <span class="product-brand">by <a href="#">Sony</a></span>
+                    
+                    <div class="rating">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-half"></i>
+                        <span class="text-muted ms-2">(1,428 reviews)</span>
+                    </div>
+                    
+                    <div class="price-container">
+                        <span class="current-price">$349.99</span>
+                        <span class="original-price">$399.99</span>
+                        <span class="discount-badge">12% OFF</span>
+                    </div>
+                    
+                    <div class="availability">
+                        <i class="bi bi-check-circle-fill"></i> In stock and ready to ship
+                    </div>
+                    
+                    <div class="option-selector">
+                        <div class="option-label">Color:</div>
+                        <div class="d-flex mt-2">
+                            <div class="color-option selected" style="background-color: #000000;" title="Black" onclick="selectColor(this)"></div>
+                            <div class="color-option" style="background-color: #6c757d;" title="Silver" onclick="selectColor(this)"></div>
+                            <div class="color-option" style="background-color: #495057;" title="Space Gray" onclick="selectColor(this)"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="quantity-selector">
+                        <div class="option-label">Quantity:</div>
+                        <div class="d-flex mt-2">
+                            <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
+                            <input type="text" class="quantity-input" value="1" id="quantity">
+                            <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn-cart" onclick="addToCart()">
+                            <i class="bi bi-cart-fill me-2"></i> Add to Cart
+                        </button>
+                        <button class="btn-wishlist" title="Add to Wishlist" onclick="toggleWishlist()">
+                            <i class="bi bi-heart" id="wishlistIcon"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="delivery-options">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-truck me-2"></i>
+                            <span>Free delivery on orders over $50</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-arrow-left-right me-2"></i>
+                            <span>30-day free returns</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-shield-check me-2"></i>
+                            <span>2-year warranty included</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Product Tabs -->
+        <div class="product-tabs">
+            <ul class="nav nav-tabs" id="productTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab">Description</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="specs-tab" data-bs-toggle="tab" data-bs-target="#specs" type="button" role="tab">Specifications</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab">Reviews (1,428)</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="productTabContent">
+                <div class="tab-pane fade show active" id="description" role="tabpanel">
+                    <h5>Industry-leading noise cancellation</h5>
+                    <p>The Sony WH-1000XM4 wireless headphones feature our most advanced noise cancellation technology, with Dual Noise Sensor technology that catches ambient noise and applies opposite sound signal to cancel it out.</p>
+                    
+                    <h5 class="mt-4">Key Features:</h5>
+                    <ul>
+                        <li>Industry-leading noise cancellation with Dual Noise Sensor technology</li>
+                        <li>Next-level music with Edge-AI, co-developed with Sony Music Studios Tokyo</li>
+                        <li>Up to 30-hour battery life with quick charging (10 min charge for 5 hours of playback)</li>
+                        <li>Touch sensor controls to pause/play/skip tracks, control volume, activate your voice assistant, and answer phone calls</li>
+                        <li>Wearing detection pauses playback when headphones are removed</li>
+                        <li>Speak-to-chat technology automatically reduces volume during conversations</li>
+                    </ul>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <img src="https://images.unsplash.com/photo-1593784991095-a205069470b6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=700&q=80" ,
+                            
+                                 class="img-fluid rounded mb-3" 
+                                 alt="Headphones in use">
+                        </div>
+                        <div class="col-md-6">
+                            <img src="https://images.unsplash.com/photo-1545127398-5aae47194b22?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+                                 class="img-fluid rounded mb-3" 
+                                 alt="Headphones details">
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="specs" role="tabpanel">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Brand</th>
+                                <td>Sony</td>
+                            </tr>
+                            <tr>
+                                <th>Model</th>
+                                <td>WH-1000XM4</td>
+                            </tr>
+                            <tr>
+                                <th>Type</th>
+                                <td>Over-ear wireless headphones</td>
+                            </tr>
+                            <tr>
+                                <th>Noise Cancellation</th>
+                                <td>Yes, industry-leading ANC</td>
+                            </tr>
+                            <tr>
+                                <th>Battery Life</th>
+                                <td>Up to 30 hours (ANC on)</td>
+                            </tr>
+                            <tr>
+                                <th>Quick Charge</th>
+                                <td>10 min charge = 5 hours playback</td>
+                            </tr>
+                            <tr>
+                                <th>Bluetooth Version</th>
+                                <td>5.0</td>
+                            </tr>
+                            <tr>
+                                <th>Weight</th>
+                                <td>254g</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="reviews" role="tabpanel">
+                    <div class="review">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <strong>Michael S.</strong>
+                                <div class="rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                            </div>
+                            <small class="text-muted">2 days ago</small>
+                        </div>
+                        <p class="mt-2">The noise cancellation is incredible! I can't hear anything on my commute. Battery life is as advertised. Very comfortable for long listening sessions.</p>
+                    </div>
+                    <div class="review mt-4">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <strong>Jennifer L.</strong>
+                                <div class="rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                </div>
+                            </div>
+                            <small class="text-muted">1 week ago</small>
+                        </div>
+                        <p class="mt-2">Great headphones overall. The only reason I'm not giving 5 stars is that the ear cushions could be a bit softer. Sound is fantastic though.</p>
+                    </div>
+                    <button class="btn btn-outline-primary mt-3">Write a Review</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Related Products -->
+        <h4 class="mb-4">You may also like</h4>
+        <div class="row">
+            <div class="col-md-3 col-6 mb-4">
+                <div class="card h-100">
+                    <img src="data:image/jpeg;base64,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" class="card-img-top" alt="Bose QuietComfort 45">
+                    <div class="card-body">
+                        <h5 class="card-title">Bose QuietComfort 45</h5>
+                        <div class="rating small">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star"></i>
+                        </div>
+                        <div class="price mt-1">$329.00</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="card h-100">
+                    <img src="https://th.bing.com/th/id/OIP.H3J9y2vAauDCuZUA1Ofb4wHaEK?w=256&h=180&c=7&r=0&o=5&cb=iwc1&dpr=1.1&pid=1.7" class="card-img-top" alt="Sony WH-XB910N">
+                    <div class="card-body">
+                        <h5 class="card-title">Sony WH-XB910N</h5>
+                        <div class="rating small">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                        </div>
+                        <div class="price mt-1">$249.99</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="card h-100">
+                    <img src="https://th.bing.com/th/id/OIP.ehfr1c9XHezEgbOoumdUsQAAAA?cb=iwc1&rs=1&pid=ImgDetMain" class="card-img-top" alt="Sennheiser Momentum 4">
+                    <div class="card-body">
+                        <h5 class="card-title">Nothing Ear 1</h5>
+                        <div class="rating small">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <div class="price mt-1">$379.95</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="card h-100">
+                    <img src="https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" class="card-img-top" alt="Apple AirPods Max">
+                    <div class="card-body">
+                        <h5 class="card-title">Apple AirPods Max</h5>
+                        <div class="rating small">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star"></i>
+                        </div>
+                        <div class="price mt-1">$549.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Change main product image when thumbnail is clicked
+        function changeImage(element, newSrc) {
+            const mainImage = document.getElementById('mainImage');
+            mainImage.src = newSrc;
+            
+            // Update active thumbnail
+            document.querySelectorAll('.thumbnail').forEach(thumb => {
+                thumb.classList.remove('active');
+            });
+            element.classList.add('active');
+        }
+        
+        // Quantity selector functions
+        function increaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            let quantity = parseInt(quantityInput.value);
+            quantityInput.value = quantity + 1;
+        }
+        
+        function decreaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            let quantity = parseInt(quantityInput.value);
+            if (quantity > 1) {
+                quantityInput.value = quantity - 1;
+            }
+        }
+        
+        // Color selector functionality
+        function selectColor(element) {
+            document.querySelectorAll('.color-option').forEach(color => {
+                color.classList.remove('selected');
+            });
+            element.classList.add('selected');
+        }
+        
+        // Size selector functionality
+        function selectSize(element) {
+            document.querySelectorAll('.size-option').forEach(size => {
+                size.classList.remove('selected');
+            });
+            element.classList.add('selected');
+        }
+        
+        // Wishlist toggle
+        function toggleWishlist() {
+            const wishlistIcon = document.getElementById('wishlistIcon');
+            if (wishlistIcon.classList.contains('bi-heart-fill')) {
+                wishlistIcon.classList.remove('bi-heart-fill');
+                wishlistIcon.classList.add('bi-heart');
+                alert('Removed from wishlist');
+            } else {
+                wishlistIcon.classList.remove('bi-heart');
+                wishlistIcon.classList.add('bi-heart-fill');
+                alert('Added to wishlist');
+            }
+        }
+        
+        // Add to cart function
+        function addToCart() {
+            const quantity = document.getElementById('quantity').value;
+            const selectedColor = document.querySelector('.color-option.selected').title;
+            alert(`Added ${quantity} ${selectedColor} Sony WH-1000XM4 to your cart`);
+        }
+        
+        // Initialize image zoom on hover
+        document.addEventListener('DOMContentLoaded', function() {
+            const mainImage = document.getElementById('mainImage');
+            const zoomLens = document.getElementById('zoomLens');
+            
+            if (mainImage && zoomLens) {
+                mainImage.addEventListener('mousemove', function(e) {
+                    // Calculate position of zoom lens
+                    // This would be more sophisticated in a real implementation
+                    zoomLens.style.display = 'block';
+                    zoomLens.style.left = (e.pageX - 50) + 'px';
+                    zoomLens.style.top = (e.pageY - 50) + 'px';
+                });
+                
+                mainImage.addEventListener('mouseleave', function() {
+                    zoomLens.style.display = 'none';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
